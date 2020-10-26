@@ -4,7 +4,7 @@ const https =require ("https");
 const bodyparser = require("body-parser");
 const htttps =require("https");
 const app= express();
-//hithere
+
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended :true}));
 
@@ -38,9 +38,9 @@ const option ={
 }
 const request = https.request( url , option , function(response){
   if(response.statusCode === 200)
-    res.sendFile(__dirname+"/success.html");
+    res.sendFile(__dirname+"/public/utility/success.html");
   else
-   res.sendFile(__dirname+"/failure.html");
+   res.sendFile(__dirname+"/public/utility/failure.html");
 
   response.on("data" ,function(data){
     console.log(JSON.parse(data));
@@ -55,5 +55,5 @@ res.redirect("/");
 });
 
 app.listen(process.env.PORT || 3000, function(){
-  console.log("server started on port 3k");
+  console.log("server started on port 3000");
  })
