@@ -121,3 +121,11 @@ body {
     color: #777;
   }
 }
+footer {
+  clear: both;
+  position: relative;
+  height: 200px;
+  margin-top: -200px;
+  display: block;
+
+}

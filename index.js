@@ -10,8 +10,14 @@ const bodyParser=require("body-parser");
 const app=express();
 app.set('view engine','ejs');
 
-app.get("/",(req,res)=>{
+app.set(bodyParser.urlencoded({extended:true}));
+
+app.get("/",function(req,res){
   res.render("list",{kindofday : 6});
+});
+
+app.post("/", function(req,res){
+   console.log(req.body.item);
 });
 
 app.listen(5050,function(){

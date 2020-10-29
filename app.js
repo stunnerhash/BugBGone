@@ -2,17 +2,29 @@
 const express=require ("express");
 const https =require ("https");
 const bodyparser = require("body-parser");
-const htttps =require("https");
 const app= express();
+
+app.set('view engine','ejs');
+
+var items=[];
 
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended :true}));
 
 app.get("/",function(req,res){
-res.sendFile(__dirname+"/signup.html");
+  res.render("list",{listTitle:"S",newListItems : items});
 });
 
+
 app.post("/", function(req,res){
+  var item=req.body.item;
+  items.push(item)
+    res.redirect("/");
+});
+app.get("/signup",function(req,res){
+  res.sendFile(__dirname+"/signup.html")
+});
+app.post("/signup", function(req,res){
   const firstname = req.body.fname;
   const lastname  = req.body.lname;
   const email     = req.body.email;
@@ -51,7 +63,7 @@ request.end();
 });
 
 app.post("/failure",function(req,res){
-res.redirect("/");
+res.redirect("/signup");
 });
 
 app.listen(process.env.PORT || 3000, function(){
