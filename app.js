@@ -1,71 +1,44 @@
+//jshint esversion:6
 
 const express=require ("express");
 const https =require ("https");
 const bodyparser = require("body-parser");
 const app= express();
+const ejs = require("ejs");
+
+const homeStartingContent = "This is the home page. ";
+const aboutContent = "This is the about page";
+const contactContent = "This is the content page  ";
+let posts=[];
 
 app.set('view engine','ejs');
-
-var items=[];
-
 app.use(express.static("public"));
 app.use(bodyparser.urlencoded({extended :true}));
 
 app.get("/",function(req,res){
-  res.render("list",{listTitle:"S",newListItems : items});
-});
-
-
-app.post("/", function(req,res){
-  var item=req.body.item;
-  items.push(item)
-    res.redirect("/");
-});
-app.get("/signup",function(req,res){
-  res.sendFile(__dirname+"/signup.html")
-});
-app.post("/signup", function(req,res){
-  const firstname = req.body.fname;
-  const lastname  = req.body.lname;
-  const email     = req.body.email;
-
-  const data = {
-    members:[
-      {
-        email_address: email,
-        status:"subscribed",
-        merge_fields:{
-          FNAME:firstname,
-          LNAME:lastname
-        }
-      }
-    ]
-  }
-const jsonData= JSON.stringify(data);
-const url ="https://us2.api.mailchimp.com/3.0/lists/06db07c006";
-
-const option ={
-  method:"POST",
-  auth : "stunnerhash:5818872d9a2c1c6acf6ffe0a631dc2b1-us2"
-}
-const request = https.request( url , option , function(response){
-  if(response.statusCode === 200)
-    res.sendFile(__dirname+"/public/utility/success.html");
-  else
-   res.sendFile(__dirname+"/public/utility/failure.html");
-
-  response.on("data" ,function(data){
-    console.log(JSON.parse(data));
-  })
+  res.render("home",{homeStartingContent});
 })
-request.write(jsonData)
-request.end();
-});
+app.get("/about",function(req,res){
+  res.render("about",{aboutContent})
+})
+app.get("/contact",function(req,res){
+  res.render("contact",{contactContent})
+})
 
-app.post("/failure",function(req,res){
-res.redirect("/signup");
-});
+app.get("/compose",(req,res)=>{
+  res.render("compose");
+})
 
-app.listen(process.env.PORT || 3000, function(){
+app.post("/compose",function(req,res){
+var report={
+  title : req.body.title,
+  description : req.body.description
+}
+posts.push(report);
+console.log(posts);
+res.redirect("/")
+})
+
+app.listen(3000, function(){
   console.log("server started on port 3000");
  })
