@@ -18,16 +18,25 @@
 .navbar-nav  li a:hover {
   color: #1abc9c !important;
 }
+h1,h2{
+  display: inline-block;
+}
 .h2{
   color: #1abc9c !important;
   letter-spacing: 2px;
 }
-.button,.button:hover,button:focus{
-  float: right;
-  margin-left: -50%;
+/* .search */
+.button{
+  margin-top:20px;
+  display: inline-block;
   outline: 0 !important;
   color: #1abc9c;
-  margin-top: 1.5em;
+}
+.button:hover,button:focus{
+  margin-left:auto;
+  display: inline-block;
+  outline: 0 !important;
+  color: #1abc9c;
 }
 .h4{
   color: #1abc9c !important;
@@ -42,7 +51,7 @@
   padding-bottom : 5px ;
   margin : 15px; 
   background-color: #d7f7f5;
-  border-radius: 5px;
+  border-radius: 2px;
 }
 
 .listing:hover{
@@ -52,7 +61,7 @@
   padding-bottom : 5px ;
   margin : 15px;
   background-color: #41e4c3;
-  border-radius:  5px;
+  border-radius:  2px;
 }
 .footer-padding {
 padding-bottom: 60px;

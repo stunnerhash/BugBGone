@@ -1,6 +1,14 @@
 <%- include("partials/header"); -%>
-<button onclick="location.href='/compose'" class="btn button" type="button">+ Projects</button>
-<h1 class="h2">HOME : PROJECTS</h1>
+<h1 class="h2" style="display: inline-block;">HOME : PROJECTS</h1>
+<div class="navbar-collapse pull-right">
+  <form class="navbar-form " role="search" style="display: inline-block;">
+    <div class="form-group">
+      <input type="text" class="form-control button" placeholder="Project Name">
+      <button type="submit" class="btn button">Search</button>
+    </div>
+  </form>
+  <button onclick="location.href='/compose'"  class="btn button " type="button">+ Projects</button>
+</div>
 <hr class="my-3">
 <% posts.forEach(function(post){ %>
   

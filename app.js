@@ -39,14 +39,19 @@ posts.push(report);
 res.redirect("/")
 });
 
-app.post("/compose/:projectName",function(req,res) {
+app.get("/compose/:projectName",function(req,res) {
   const projectName = _.lowerCase(req.params.projectName);
-
+  
+  posts.forEach(function(post){
+    const storedTitle = _.lowerCase(post.title);
+    if(storedTitle === requestedTitle){
+      res.render("",{})
+    }
+  })
 });
 
 app.get("/projects/:projectName",function(req,res){
   const requestedTitle = _.lowerCase(req.params.projectName);
-
   posts.forEach(function(post){
     const storedTitle = _.lowerCase(post.title);
     if(storedTitle === requestedTitle){
