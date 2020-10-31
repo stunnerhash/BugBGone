@@ -1,14 +1,19 @@
 <%- include("partials/header"); -%>
-<h1>HOME : Projects</h1>
+<button onclick="location.href='/compose'" class="btn button" type="button">+ Projects</button>
+<h1 class="h2">HOME : PROJECTS</h1>
 <hr class="my-3">
 <% posts.forEach(function(post){ %>
-
   
   <div class ="listing">
-  <h4 class="h4"><%= post.title %></h4>
-  <p class="text-muted"><%=post.description %></p>
+  <h4 class="h4"> <%= post.title.toUpperCase() %> </h4>
+  <% if(post.description.length >= 200){ %>
+  <p> <%= post.description.substring(0,200)+"..." %> </p>
+  <% }else{ %>
+  <p> <%= post.description %></p>
+  <% } %>
   </div>
-
-
+  <script>
+    
+  </script>
 <% }) %>
 <%- include("partials/footer") -%>

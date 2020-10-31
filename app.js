@@ -3,14 +3,13 @@
 const express=require ("express");
 const https =require ("https");
 const bodyparser = require("body-parser");
-const app= express();
 const ejs = require("ejs");
 const _ = require("lodash");
+const app= express();
 
-const homeStartingContent = "This is the home page. ";
 const aboutContent = "This is the about page";
 const contactContent = "This is the content page  ";
-let posts=[];
+var posts=[];
 
 app.set('view engine','ejs');
 app.use(express.static("public"));
@@ -33,11 +32,16 @@ app.get("/compose",(req,res)=>{
 app.post("/compose",function(req,res){
 var report={
   title : req.body.title,
-  description : req.body.description
-}
+  description : req.body.description,
+  tickets : tickets=[]
+};
 posts.push(report);
-console.log(posts);
 res.redirect("/")
+});
+
+app.post("/compose/:projectName",function(req,res) {
+  const projectName = _.lowerCase(req.params.projectName);
+
 });
 
 app.get("/projects/:projectName",function(req,res){
@@ -46,13 +50,10 @@ app.get("/projects/:projectName",function(req,res){
   posts.forEach(function(post){
     const storedTitle = _.lowerCase(post.title);
     if(storedTitle === requestedTitle){
-    console.log("match found");
-    }else{
-      console.log("not a match");
+      res.render("post",{post })
     }
   })
 });
-
 
 app.listen(process.env.PORT||3000, function(){
   console.log("server started on port 3000");
