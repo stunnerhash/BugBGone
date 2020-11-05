@@ -6,10 +6,36 @@ const bodyparser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const app= express();
+const mongoose =require('mongoose');
 
 const aboutContent = "This is the about page";
 const contactContent = "This is the content page  ";
 var posts=[];
+
+mongoose.connect("mongodb://localhost:27017/projectDB",{ useNewUrlParser : true });
+
+const projectSchema= new mongoose.Schema({
+  name : String,
+  description : String,
+  tickets :[{
+    title : String,
+    description : String
+  }]
+});
+const Project =mongoose.model("Project",projectSchema);
+
+const project = new Project ({
+  name:"BugBGone",
+  description : "An easy way to connect to developer",
+  $push : {
+      ticket :{
+      title: "Improve",
+      description : "Make it Responsive",
+    }
+  }
+});
+
+project.save();
 
 app.set('view engine','ejs');
 app.use(express.static("public"));
